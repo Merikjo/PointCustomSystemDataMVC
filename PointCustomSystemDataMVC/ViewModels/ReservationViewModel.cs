@@ -25,7 +25,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Note { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy\\-MM\\-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hoito maksettu pvm")]
         public DateTime? TreatmentPaidDate { get; set; }
 

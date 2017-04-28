@@ -8,19 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User")]
     public class PhonesController : Controller
-    {
-        //[Authorize(Roles = "Personnel User")]
+    {   
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Phones
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<Phone> model = new List<Phone>();
 
@@ -30,7 +31,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 List<Phone> phones = entities.Phone.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
-
                 foreach (Phone phone in phones)
                 {
                     Phone view = new Phone();
@@ -53,6 +53,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Phones/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -68,6 +71,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Phones/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
@@ -87,6 +93,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Phone_id,PhoneNum_1,PhoneNum_2,PhoneNum_3,User_id,Personnel_id,Customer_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id")] Phone phone)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (ModelState.IsValid)
             {
                 db.Phone.Add(phone);
@@ -105,6 +114,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Phones/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -129,6 +141,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Phone_id,PhoneNum_1,PhoneNum_2,PhoneNum_3,User_id,Personnel_id,Customer_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id")] Phone phone)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (ModelState.IsValid)
             {
                 db.Entry(phone).State = EntityState.Modified;
@@ -146,6 +161,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Phones/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -163,6 +181,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Phone phone = db.Phone.Find(id);
             db.Phone.Remove(phone);
             db.SaveChanges();

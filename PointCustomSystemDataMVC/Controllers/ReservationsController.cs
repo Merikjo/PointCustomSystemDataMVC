@@ -21,19 +21,20 @@ using System.Collections;
 using System.Data.SqlClient;
 using Rotativa.MVC;
 using System.Text;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    //[Authorize(Roles = "Personnel User,Student User")]
+    [Authorize(Roles = "Personnel User,Student User")]
     public class ReservationsController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Reservations
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<ReservationViewModel> model = new List<ReservationViewModel>();
 
@@ -43,14 +44,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
-
                 foreach (Reservation reservation in reservations)
                 {
                     ReservationViewModel res = new ReservationViewModel();
 
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
                     res.Customer_id = reservation.Customer?.Customer_id;
                     res.FirstNameA = reservation.Customer?.FirstName;
@@ -66,7 +66,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.CalendarTitle2 = reservation.CalendarTitle;
                     res.TreatmentReportTexts = reservation.TreatmentReportTexts;
                     res.TreatmentCompleted = reservation.TreatmentCompleted.GetValueOrDefault();
-
 
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
@@ -97,34 +96,15 @@ namespace PointCustomSystemDataMVC.Controllers
 
             CultureInfo fiFi = new CultureInfo("fi-FI");
 
-            //25.3.2017 Lisätty sort -toiminto
-            ViewBag.FirstnameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
-            ViewBag.LastnameSortParm = sortOrder == "LastName" ? "lastname_desc" : "LastName";
-            var custom = from c in db.Customer
-                         orderby c.FirstName ascending
-                         select c;
-
-            switch (sortOrder)
-            {
-                case "firstname_desc":
-                    custom = custom.OrderByDescending(c => c.FirstName);
-                    break;
-                case "LastName":
-                    custom = custom.OrderBy(c => c.LastName);
-                    break;
-                case "lastname_desc":
-                    custom = custom.OrderByDescending(c => c.LastName);
-                    break;
-                default:
-                    custom = custom.OrderBy(c => c.FirstName);
-                    break;
-            }
 
             return View(model);
         }
         //Asiakkaan palveluvarauksen pdf raportti
         public ActionResult DownloadViewPDF(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ReservationViewModel model = new ReservationViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -207,6 +187,9 @@ namespace PointCustomSystemDataMVC.Controllers
         //Palvelun Laskun tulostus:
         public ActionResult DownloadBill(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ReservationViewModel model = new ReservationViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -280,6 +263,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ReservationViewModel model = new ReservationViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -352,6 +338,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ReservationViewModel model = new ReservationViewModel();
@@ -372,6 +361,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ReservationViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             Reservation res = new Reservation();
@@ -442,6 +434,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -506,6 +501,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ReservationViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.Date = model.Date.GetValueOrDefault();
             //res.Start = model.Start.GetValueOrDefault();
@@ -577,6 +575,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -630,6 +631,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Reservation reservation = db.Reservation.Find(id);
             db.Reservation.Remove(reservation);
             db.SaveChanges();
@@ -652,6 +656,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/TreatText/5
         public ActionResult TreatText(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -676,6 +683,8 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TreatText(ReservationDetailViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentReportTexts = model.TreatmentReportTexts;
@@ -690,6 +699,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/TreatPayment/5
         public ActionResult TreatPayment(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -713,6 +725,8 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TreatPayment(ReservationDetailViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentPaid = model.TreatmentPaid;
@@ -727,6 +741,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/ReservationCompleted/5
         public ActionResult ReservationCompleted(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -749,6 +766,8 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ReservationCompleted(ReservationDetailViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentCompleted = model.TreatmentCompleted;

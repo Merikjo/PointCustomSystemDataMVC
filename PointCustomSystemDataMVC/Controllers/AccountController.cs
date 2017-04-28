@@ -13,7 +13,7 @@ using PointCustomSystemDataMVC.Utilities;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Personnel User")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

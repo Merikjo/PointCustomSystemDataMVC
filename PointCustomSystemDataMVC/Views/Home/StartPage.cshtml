@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+@*//Url osoite, joka tuo näkymään kalenterin*@
 <script src="@Url.Content("~/Scripts/DayPilot/daypilot-all.min.js")" type="text/javascript"></script>
 
 @section scripts {
@@ -54,6 +55,8 @@
                 modal.top = 60;
                 modal.width = 500;
                 modal.opacity = 70;
+                modal.height = 500;
+                modal.zIndex = 100;
                 modal.border = "10px solid #d0d0d0";
                 m.closed = function () {
                     if (this.result == "OK") {
@@ -61,8 +64,7 @@
                     }
                     db.clearSelection();
                 };
-                modal.height = 500;
-                modal.zIndex = 100;
+             
                 m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
             }
 
@@ -110,7 +112,7 @@
 
     h2 {
         font-size: 36px;
-        color: black;
+        color: black !important;
     }
 
 </style>

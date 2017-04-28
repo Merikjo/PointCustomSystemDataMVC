@@ -14,27 +14,28 @@
     <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
-        // oma filtteröintifunktio varauksille, jotka on jo suoritettu
+        // oma filtteröintifunktio varauksille (=Palvelusuoritus), jotka on jo suoritettu
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
             // luetaan valintaruudun asetus
             var showCompleted = $("#showCompletedReservationsCheckbox").is(":checked");
 
-            // luetaan 11. solun arvo: tämä on "palvelu suoritettu"
+            // luetaan 10. solun arvo: tämä on "Palvelusuoritus"
             var reservationComplete = settings.aoData[dataIndex].anCells[10].children[0].checked;
 
             /* Jos käyttäjä on valinnut asetuksen "Näytä kaikki palvelusuoritukset", otetaan listalle
              * mukaan myös valmistuneet suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
              * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
             if (showCompleted) {
-                // näytetään kaikki varaukset, myös valmistuneet
+                // näytetään kaikki varaukset, myös valmistuneet =true;
                 return true;
             }
             else {
                 if (reservationComplete) {
-                    // ei näytetä valmistuneita varauksia
+                    // ei näytetä valmistuneita varauksia =false;
                     return false;
                 }
                 else {
+                     // muutoin =true;
                     return true;
                 }
             }
@@ -51,42 +52,42 @@
             });
         });
 
-        // oma filtteröintifunktio maksuille, joita ei ole vielä suoritettu
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            // luetaan valintaruudun asetus
-            var showNotPaid = $("#showNotPaidCheckbox").is(":checked");
+        //// oma filtteröintifunktio maksuille, joita ei ole vielä suoritettu
+        //$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        //    // luetaan valintaruudun asetus
+        //    var showNotPaid = $("#showNotPaidCheckbox").is(":checked");
 
-            // luetaan 12. solun arvo: tämä on "Maksettu"
-            var treatmentPaid = settings.aoData[dataIndex].anCells[11].children[0].checked;
+        //    // luetaan 11. solun arvo: tämä on "Maksettu"
+        //    var treatmentPaid = settings.aoData[dataIndex].anCells[11].children[0].checked;
 
-            /* Jos käyttäjä on valinnut asetuksen "Näytä kaikki maksetut / maksamattomat", otetaan listalle
-             * mukaan myös maksetut suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
-             * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
-            if (showNotPaid) {
-                // näytetään kaikki varaukset, myös maksetut
-                return true;
-            }
-            else {
-                if (treatmentPaid) {
-                    // ei näytetä maksettuja hoitoja
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        });
+        //    /* Jos käyttäjä on valinnut asetuksen "Näytä kaikki maksetut / maksamattomat", otetaan listalle
+        //     * mukaan myös maksetut suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
+        //     * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+        //    if (showNotPaid) {
+        //        // näytetään kaikki varaukset, myös maksetut
+        //        return true;
+        //    }
+        //    else {
+        //        if (treatmentPaid) {
+        //            // ei näytetä maksettuja hoitoja
+        //            return true;
+        //        }
+        //        else {
+        //            return false;
+        //        }
+        //    }
+        //});
 
-        $(function () {
-            // sivun alustus
-            //alert("Sivun alustus");
-            var varausTaulu = $("#reservationsTable").DataTable();
+        //$(function () {
+        //    // sivun alustus
+        //    //alert("Sivun alustus");
+        //    var varausTaulu = $("#reservationsTable").DataTable();
 
-            $("#showNotPaidCheckbox").change(function () {
-                // kun käyttäjä napsauttaa valintaruutua, päivitetään varaustaulukko
-                varausTaulu.draw();
-            });
-        });
+        //    $("#showNotPaidCheckbox").change(function () {
+        //        // kun käyttäjä napsauttaa valintaruutua, päivitetään varaustaulukko
+        //        varausTaulu.draw();
+        //    });
+        //});
 
     // SCRIPT MODAL KALENTERINÄKYMÄ:
     function create(start, end) {
@@ -311,7 +312,8 @@
                EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
                EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
                EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
-               EventClickJavaScript = "editEvent(e.id())",
+               EventClickJavaScript = "edit" +
+               "Event(e.id())",
                TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
                TimeRangeSelectedJavaScript = "create(start,end)",
                HeightSpec = HeightSpec.BusinessHours,
@@ -339,7 +341,7 @@
         <p>&nbsp;</p>
 
         <p>Näytä kaikki palvelusuoritukset: <input id="showCompletedReservationsCheckbox" type="checkbox" /></p>
-        <p>Näytä kaikki maksetut / maksamattomat: <input id="showNotPaidCheckbox" type="checkbox" /></p>
+        @*<p>Näytä kaikki maksetut / maksamattomat: <input id="showNotPaidCheckbox" type="checkbox" /></p>*@
         <p>&nbsp;</p>
     <table class="table" id="reservationsTable">
             <thead>
@@ -422,24 +424,24 @@
                         </td>
                         <td>
                             @{
-                                string checked1 = "";
+                                string Treat = "";
                                 if (item.TreatmentCompleted.HasValue && (item.TreatmentCompleted.Value == true))
                                 {
-                                    checked1 = "checked";
+                                    Treat = "checked";
                                 }
                             }
-                            <input name="TreatmentCompelted" type="checkbox" @checked1 />
+                            <input name="TreatmentCompelted" type="checkbox" @Treat/>
                             @* @Html.DisplayFor(modelItem => item.TreatmentCompleted)*@
                         </td>
                         <td>
                             @{
-                                string checked2 = "";
+                                string Paid = "";
                                 if (item.TreatmentPaid.HasValue && (item.TreatmentPaid.Value == true))
                                 {
-                                    checked2 = "checked";
+                                    Paid = "checked";
                                 }
                             }
-                            <input name="TreatmentPaid" type="checkbox" @checked2 />
+                            <input name="TreatmentPaid" type="checkbox" @Paid />
                             @*@Html.DisplayFor(modelItem => item.TreatmentPaid)*@
                         </td>
                   

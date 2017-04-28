@@ -16,7 +16,7 @@ using Rotativa.MVC;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    //[Authorize(Roles = "Personnel User")]
+    [Authorize(Roles = "Personnel User")]
     public class StudentxesController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -24,8 +24,8 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<StudentViewModel> model = new List<StudentViewModel>();
 
@@ -86,6 +86,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
         public ActionResult DownloadViewPDF(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ReservationDetailViewModel model = new ReservationDetailViewModel();
             //List<StudentViewModel> model = new List<StudentViewModel>();
 
@@ -174,6 +177,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ReservationDetailViewModel model = new ReservationDetailViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -252,6 +258,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             StudentViewModel model = new StudentViewModel();
@@ -271,6 +280,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(StudentViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             Studentx stu = new Studentx();
@@ -338,6 +350,9 @@ namespace PointCustomSystemDataMVC.Controllers
     // GET: Studentxes/Edit/5
     public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -392,6 +407,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(StudentViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Studentx stu = db.Studentx.Find(model.Student_id);
 
             stu.FirstName = model.FirstNameH;
@@ -484,6 +502,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -535,6 +556,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Studentx studentx = db.Studentx.Find(id);
             db.Studentx.Remove(studentx);
             db.SaveChanges();
@@ -554,6 +578,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Customers/Archive/5
         public ActionResult Archive(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -577,6 +604,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Archive(StudentViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Studentx svm = db.Studentx.Find(model.Student_id);
             svm.Active = model.Active;
             svm.DeletedAt = DateTime.Now;

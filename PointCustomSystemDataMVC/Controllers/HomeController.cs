@@ -8,22 +8,22 @@ using System.Web.Mvc;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User,Student User")]
     public class HomeController : Controller
     {
-
-        //[Authorize(Roles = "Personnel User,Student User")]
+  
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
           
             return View();
         }
 
         public ActionResult StartPage()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             return View();
         }

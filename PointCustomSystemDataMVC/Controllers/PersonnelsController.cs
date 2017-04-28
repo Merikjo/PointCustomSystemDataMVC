@@ -16,7 +16,7 @@ using Rotativa.MVC;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    //[Authorize(Roles = "Personnel User,Student User")]
+    [Authorize(Roles = "Personnel User")]
     public class PersonnelsController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -24,8 +24,8 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<PersonnelViewModel> model = new List<PersonnelViewModel>();
 
@@ -77,6 +77,9 @@ namespace PointCustomSystemDataMVC.Controllers
         //PDF-tiedoston luominen:
         public ActionResult DownloadViewPDF(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             PersonnelViewModel model = new PersonnelViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -135,6 +138,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             PersonnelViewModel model = new PersonnelViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -202,6 +208,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PersonnelViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             Personnel per = new Personnel();
@@ -255,6 +264,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -298,6 +310,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PersonnelViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Personnel per = db.Personnel.Find(model.Personnel_id); 
             per.FirstName = model.FirstNameP;
             per.LastName = model.LastNameP;
@@ -371,6 +386,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -411,6 +429,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             Personnel personnel = db.Personnel.Find(id);
             db.Personnel.Remove(personnel);
             db.SaveChanges();
@@ -427,17 +448,20 @@ namespace PointCustomSystemDataMVC.Controllers
             base.Dispose(disposing);
         }//Delete
 
-        //SideMenu:
-        public ActionResult SideMenu()
-        {
-            return PartialView("SideMenu");
-        }
+        ////SideMenu:
+        //public ActionResult SideMenu()
+        //{
+        //    return PartialView("SideMenu");
+        //}
 
 
         // Henkilökunnan tietojen arkistointi:
         // GET: Customers/Archive/5
         public ActionResult Archive(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -461,6 +485,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Archive(PersonnelViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? ""; 
+
             Personnel pvm = db.Personnel.Find(model.Personnel_id);
             pvm.Active = model.Active;
             pvm.DeletedAt = DateTime.Now;

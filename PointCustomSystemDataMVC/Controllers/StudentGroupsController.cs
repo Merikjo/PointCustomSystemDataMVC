@@ -8,20 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using PointCustomSystemDataMVC.ViewModels;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User")]
     public class StudentGroupsController : Controller
-    {
-        //[Authorize(Roles = "Personnel User")]
+    {     
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: StudentGroups
         public ActionResult Index()
         {
-
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<StudentGroupViewModel> model = new List<StudentGroupViewModel>();
 
@@ -57,6 +57,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             StudentGroupViewModel model = new StudentGroupViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -99,6 +102,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             StudentGroupViewModel model = new StudentGroupViewModel();
@@ -113,6 +119,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(StudentViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             StudentGroup stug = new StudentGroup();
@@ -139,6 +148,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -167,6 +179,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(StudentViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             StudentGroup stug = db.StudentGroup.Find(model.StudentGroup_id);
             stug.StudentGroupName = model.StudentGroupName;
             stug.Active = model.Active;
@@ -182,6 +197,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -208,6 +226,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             StudentGroup studentGroup = db.StudentGroup.Find(id);
             db.StudentGroup.Remove(studentGroup);
             db.SaveChanges();

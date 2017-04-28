@@ -8,20 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using PointCustomSystemDataMVC.ViewModels;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User")]
     public class TreatmentPlacesController : Controller
-    {
-
-        //[Authorize(Roles = "Personnel User,Student User")]
+    {   
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: TreatmentPlaces
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<TreatmentPlaceViewModel> model = new List<TreatmentPlaceViewModel>();
 
@@ -87,6 +87,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentPlaces/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentPlaceViewModel model = new TreatmentPlaceViewModel();
@@ -102,6 +105,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TreatmentPlaceViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentPlace trp = new TreatmentPlace();
@@ -126,6 +132,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentPlaces/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -151,7 +160,10 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TreatmentPlaceViewModel model)
         {
-           TreatmentPlace treatplace = db.TreatmentPlace.Find(model.TreatmentPlace_id);
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
+            TreatmentPlace treatplace = db.TreatmentPlace.Find(model.TreatmentPlace_id);
 
             treatplace.TreatmentPlaceName = model.TreatmentPlaceName;
             treatplace.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
@@ -165,6 +177,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentPlaces/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -189,6 +204,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             TreatmentPlace treatmentPlace = db.TreatmentPlace.Find(id);
             db.TreatmentPlace.Remove(treatmentPlace);
             db.SaveChanges();

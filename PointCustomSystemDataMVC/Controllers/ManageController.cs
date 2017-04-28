@@ -10,7 +10,7 @@ using PointCustomSystemDataMVC.Models;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Personnel User")]
     public class ManageController : Controller
     {
         

@@ -173,6 +173,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Opinnot keskeytyneet pvm")]
         public DateTime? EnrollmentDateOFF { get; set; }
 
+        //hakee objektina tiedot Customer Details taulun alitiedostoon tiedot asiakkaan palvelutiedoista 
+        //tätä varten luodun TreatmentDetailViewModelin avulla
         public virtual List<TreatmentDetailViewModel> Customreservations { get; set; }
         public virtual List<StudentDetailViewModel> Studentreservations { get; set; }
     }

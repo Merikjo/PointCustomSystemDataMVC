@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User")]
     public class PostOfficesController : Controller
-    {
-        //[Authorize(Roles = "Personnel User")]
+    {    
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: PostOffices
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<PostOffices> model = new List<PostOffices>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -53,6 +55,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: PostOffices/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -68,6 +73,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: PostOffices/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
@@ -88,6 +96,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Post_id,PostalCode,PostOffice,Personnel_id,Phone_id,Customer_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] PostOffices postOffices)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (ModelState.IsValid)
             {
                 db.PostOffices.Add(postOffices);
@@ -107,6 +118,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: PostOffices/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,6 +130,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", postOffices.Personnel_id);
        
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", postOffices.Post_id);
@@ -134,6 +149,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Post_id,PostalCode,PostOffice,Personnel_id,Phone_id,Customer_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] PostOffices postOffices)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (ModelState.IsValid)
             {
                 db.Entry(postOffices).State = EntityState.Modified;
@@ -154,6 +172,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: PostOffices/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -171,6 +192,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             PostOffices postOffices = db.PostOffices.Find(id);
             db.PostOffices.Remove(postOffices);
             db.SaveChanges();

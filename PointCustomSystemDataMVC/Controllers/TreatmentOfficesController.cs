@@ -9,19 +9,20 @@ using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using PointCustomSystemDataMVC.ViewModels;
 using System.Text;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    //[Authorize(Roles = "Personnel User")]
     public class TreatmentOfficesController : Controller
-    {
-        //[Authorize(Roles = "Personnel User")]
+    {    
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: TreatmentOffices
         public ActionResult Index()
         {
-            //string username = User.Identity.Name;
-            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<TreatmentOfficeViewModel> model = new List<TreatmentOfficeViewModel>();
 
@@ -63,6 +64,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentOffices/Details/5
         public ActionResult Details(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             TreatmentOfficeViewModel model = new TreatmentOfficeViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -103,6 +107,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentOffices/Create
         public ActionResult Create()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentOfficeViewModel model = new TreatmentOfficeViewModel();
@@ -118,6 +125,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
         public ActionResult Create(TreatmentOfficeViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentOffice trmoff = new TreatmentOffice();
@@ -157,6 +167,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentOffices/Edit/5
         public ActionResult Edit(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -191,6 +204,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TreatmentOfficeViewModel model)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             TreatmentOffice trmoff = db.TreatmentOffice.Find(model.TreatmentOffice_id);
             trmoff.TreatmentOfficeName = model.TreatmentOfficeName;
             trmoff.Address = model.Address;
@@ -241,6 +257,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentOffices/Delete/5
         public ActionResult Delete(int? id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -273,6 +292,9 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             TreatmentOffice treatmentOffice = db.TreatmentOffice.Find(id);
             db.TreatmentOffice.Remove(treatmentOffice);
             db.SaveChanges();

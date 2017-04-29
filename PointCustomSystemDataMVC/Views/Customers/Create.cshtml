@@ -115,20 +115,12 @@
                     @Html.LabelFor(model => model.Active, "Tila", new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         <div class="checkbox">
-                            <input class="w3-input w3-border w3-padding" type="text" placeholder="Määritä True / False" />
+                            <input class="w3-input w3-border w3-padding" type="text" placeholder="Määritä True=Aktiivinen / False=Arkistoitu" />
                             @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-control", @placeholder = "Määritä True / False" } })
                             @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.CreatedAt, "Hlötieto tallennettu pvm", new { @class = "control-label col-md-2"})
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control", @placeholder = "Siirrä arkistointiin" } })
-                        @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
 
             
 

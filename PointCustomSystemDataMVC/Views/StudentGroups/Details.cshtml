@@ -23,7 +23,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Active)
+            @{
+                string True = "";
+                if (Model.Active.HasValue && (Model.Active.Value == true))
+                {
+                    True = "checked";
+                }
+            }
+            <input name="Active" type="checkbox" @True />
+            @*@Html.DisplayFor(model => model.Active)*@
         </dd>
 
         <dt>

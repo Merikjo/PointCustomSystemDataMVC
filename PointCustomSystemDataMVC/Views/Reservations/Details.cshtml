@@ -109,7 +109,15 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TreatmentCompleted)
+                @{
+                    string Treat = "";
+                    if (Model.TreatmentCompleted.HasValue && (Model.TreatmentCompleted.Value == true))
+                    {
+                        Treat = "checked";
+                    }
+                }
+                <input name="TreatmentCompelted" type="checkbox" @Treat />
+                @*@Html.DisplayFor(model => model.TreatmentCompleted)*@
             </dd>
 
             <dt>
@@ -133,7 +141,15 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TreatmentPaid)
+                @{
+                    string Paid = "";
+                    if (Model.TreatmentPaid.HasValue && (Model.TreatmentPaid.Value == true))
+                    {
+                        Paid = "checked";
+                    }
+                }
+                <input name="TreatmentPaid" type="checkbox" @Paid />
+                @*@Html.DisplayFor(model => model.TreatmentPaid)*@
             </dd>
 
             <dt>

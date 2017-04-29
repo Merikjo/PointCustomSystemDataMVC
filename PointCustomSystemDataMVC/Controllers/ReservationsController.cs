@@ -490,6 +490,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
             res.Address = resdetail.TreatmentOffice?.Address;
             ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", res.TreatmentOffice_id);
+
             return View(res);
 
         }//edit
@@ -589,7 +590,6 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             ReservationViewModel res = new ReservationViewModel();
-
             res.Reservation_id = reservation.Reservation_id;
             res.Start = reservation.Start.Value;
             res.End = reservation.End.Value;

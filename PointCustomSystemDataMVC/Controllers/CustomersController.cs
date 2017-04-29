@@ -480,7 +480,8 @@ namespace PointCustomSystemDataMVC.Controllers
             else
             {
                 User user = cus.User.FirstOrDefault();
-                if (user != null)
+                if (us
+                    er != null)
                 {
                     user.UserIdentity = model.UserIdentity;
                 }

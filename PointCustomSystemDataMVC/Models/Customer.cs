@@ -33,7 +33,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<System.DateTime> LastModifiedAt { get; set; }
         public Nullable<System.DateTime> DeletedAt { get; set; }
-        public Nullable<bool> Active { get; set; }
+        public bool Active { get; set; }
         public Nullable<bool> Permission { get; set; }
         public Nullable<System.DateTime> PermissionCheckDate { get; set; }
     

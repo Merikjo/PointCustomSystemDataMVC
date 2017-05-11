@@ -99,6 +99,16 @@
         div.dataTables_wrapper div.dataTables_filter input{
             width:400px;
         }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
     </style>
 }
 <title>PointCollege Ajanvarausohjelmisto</title>
@@ -134,124 +144,126 @@
 
      <p>Näytä myös arkistoidut asiakkaat: <input id="showArchiveCustomersCheckbox" type="checkbox" /></p>
      <p>Näytä ei lupatietoa antaneet: <input id="showCustomersPermissionCheckbox" type="checkbox" /></p>
-        
-    <table class="table" id="customerTable">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UserIdentity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FirstNameA)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LastNameA)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Identity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PhoneNum_1)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Address)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PostalCode)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PostOffice)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Notes)
-                    </th>
-                    <th>                       
-                        @Html.DisplayNameFor(model => model.Active)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Permission)
-                    </th>
+   
+     <div style="overflow-x:auto;">
+         <table class="table" id="customerTable">
+             <thead>
+                 <tr>
+                     <th>
+                         @Html.DisplayNameFor(model => model.UserIdentity)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.FirstNameA)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.LastNameA)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Identity)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Email)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.PhoneNum_1)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Address)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.PostalCode)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.PostOffice)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Notes)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Active)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Permission)
+                     </th>
 
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody>
+                 @foreach (var item in Model)
             {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserIdentity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstNameA)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastNameA)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Identity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNum_1)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PostalCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PostOffice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Notes)
-                        </td>
-                        <td>
-                            @{
-                                string True = "";
-                                if (item.Active.HasValue && (item.Active.Value == true))
-                                {
-                                    True = "checked";
-                                }
-                            }
-                            <input name="Active" type="checkbox" @True />
-                            @*@Html.DisplayFor(modelItem => item.Active)*@                        
-                        </td>
+                     <tr>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.UserIdentity)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.FirstNameA)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.LastNameA)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Identity)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Email)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Address)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.PostalCode)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.PostOffice)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Notes)
+                         </td>
+                         <td>
+                             @{
+                                 string True = "";
+                                 //if (item.Active.HasValue && (item.Active.Value == true))
+                                 {
+                                     True = "checked";
+                                 }
+                             }
+                             <input name="Active" type="checkbox" @True />
+                             @*@Html.DisplayFor(modelItem => item.Active)*@
+                         </td>
 
-                        <td>
-                            @{
-                                string PermissionOk = "";
-                                if (item.Permission.HasValue && (item.Permission.Value == true))
-                                {
-                                    PermissionOk = "checked";
-                                }
-                            }
-                            <input name="Permission" type="checkbox" @PermissionOk />
-                            @*@Html.DisplayFor(modelItem => item.Permission)*@
-                        </td>
+                         <td>
+                             @{
+                                 string PermissionOk = "";
+                                 if (item.Permission.HasValue && (item.Permission.Value == true))
+                                 {
+                                     PermissionOk = "checked";
+                                 }
+                             }
+                             <input name="Permission" type="checkbox" @PermissionOk />
+                             @*@Html.DisplayFor(modelItem => item.Permission)*@
+                         </td>
 
-                        <td>
-                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                            @*@Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |*@
-                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new {id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                            <br><br>
-                            @Html.ActionLink("Palveluvaraus", "Create", "Reservations", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                            <br><br>                      
-                            @Html.ActionLink("Lupatieto", "CustomerPermission", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                            <br><br>
-                            @Html.ActionLink("Arkistointi", "Archive", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                         <td>
+                             @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
+                             @*@Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |*@
+                             @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
+                             @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                             <br><br>
+                             @Html.ActionLink("Palveluvaraus", "Create", "Reservations", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                             <br><br>
+                             @Html.ActionLink("Lupatieto", "CustomerPermission", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                             <br><br>
+                             @Html.ActionLink("Arkistointi", "Archive", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                         </td>
+                     </tr>
+                                 }
+             </tbody>
+         </table>
+     </div>
     </div><!-- End content -->
 </div><!-- End page content -->
 

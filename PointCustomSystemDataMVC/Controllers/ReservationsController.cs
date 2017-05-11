@@ -43,6 +43,8 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
 
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
                 foreach (Reservation reservation in reservations)
                 {
@@ -93,9 +95,6 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 entities.Dispose();
             }
-
-            CultureInfo fiFi = new CultureInfo("fi-FI");
-
 
             return View(model);
         }
@@ -280,7 +279,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 Reservation resdetail = entities.Reservation.Find(reservation.Reservation_id);
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta      
-
                 ReservationViewModel res = new ReservationViewModel();
                 res.Reservation_id = resdetail.Reservation_id;
                 res.Start = resdetail.Start.GetValueOrDefault();
@@ -429,7 +427,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return RedirectToAction("Index");
         }//create*/;
 
-        CultureInfo fiFi = new CultureInfo("fi-FI");
+       
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)

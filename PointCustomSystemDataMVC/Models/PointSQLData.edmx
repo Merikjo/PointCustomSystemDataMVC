@@ -19,7 +19,7 @@
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="LastModifiedAt" Type="datetime" />
           <Property Name="DeletedAt" Type="datetime" />
-          <Property Name="Active" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Permission" Type="bit" />
           <Property Name="PermissionCheckDate" Type="datetime" />
         </EntityType>
@@ -586,7 +586,7 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <Property Name="DeletedAt" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Permission" Type="Boolean" />
           <NavigationProperty Name="Phone" Relationship="JohaMeriSQL1Model.FK_Phone_ToTable_3" FromRole="Customer" ToRole="Phone" />
           <NavigationProperty Name="PostOffices" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_2" FromRole="Customer" ToRole="PostOffices" />

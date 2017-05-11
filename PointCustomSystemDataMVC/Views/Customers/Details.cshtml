@@ -6,9 +6,6 @@
 
 <h2>Asiakastiedot</h2>
 
-@*<p>
-    @Html.ActionLink("Tee uusi varaus", "Create", "Reservations")
-</p>*@
 
 <p><a href="/Reservations/Create" class="w3-btn w3-small">Uusi palveluvaraus</a></p>
 
@@ -122,13 +119,13 @@
         <dd>
             @{
                 string True = "";
-                if (Model.Active.HasValue && (Model.Active.Value == true))
+                //if (Model.Active.HasValue && (Model.Active.Value == true))
                 {
                     True = "checked";
                 }
             }
             <input name="Active" type="checkbox" @True />
-            @Html.DisplayFor(model => model.Active)
+            @*@Html.DisplayFor(model => model.Active)*@
         </dd>
 
         <dd>
